@@ -1,0 +1,31 @@
+// schema.prisma
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL") // uses connection pooling
+    directUrl = env("DIRECT_URL") // uses a direct connection
+}
+
+model House {
+    id              String      @default(cuid()) @id
+    address         Address     @relation(fields: [addressId], references: [id])
+    addressId       String      @unique
+}
+
+model Address {
+    id              String      @default(cuid()) @id
+    streetAddress   String
+    houses          House[]
+    city            City        @relation(fields: [cityId], references: [id])
+    cityId          String
+}
+
+model City {
+    id              String      @default(cuid()) @id
+    name            String
+    addresses       Address[]
+}
