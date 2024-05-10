@@ -28,7 +28,7 @@ export default function Readings({ readings, streetAddress, type }: PropsType) {
       <TableHeader>
         <TableRow>
           <TableHead>Date</TableHead>
-          <TableHead className="text-right">Value / kWh</TableHead>
+          <TableHead className="text-right">Value / units</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

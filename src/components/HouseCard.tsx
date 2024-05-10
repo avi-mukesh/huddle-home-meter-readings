@@ -39,7 +39,7 @@ export default async function HouseCard({ house }: PropsType) {
             Electricity:{" "}
             {lastElectricityReading ? (
               <span>
-                {lastElectricityReading.readingValue} on{" "}
+                {lastElectricityReading.readingValue} units on{" "}
                 {formatDateToLocal(lastElectricityReading.date)}
               </span>
             ) : (
@@ -52,7 +52,7 @@ export default async function HouseCard({ house }: PropsType) {
             Gas:{" "}
             {lastGasReading ? (
               <span>
-                {lastGasReading.readingValue} on{" "}
+                {lastGasReading.readingValue} units on{" "}
                 {formatDateToLocal(lastGasReading.date)}
               </span>
             ) : (
