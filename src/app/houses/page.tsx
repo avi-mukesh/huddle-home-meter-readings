@@ -18,7 +18,7 @@ export default async function page({
 
   return (
     <div className="w-full">
-      <div className="flex w-full items-center justify-between">
+      <div className="flex items-center justify-between space-y-2">
         <h1 className="text-4xl font-bold">Houses</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2">

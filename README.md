@@ -5,7 +5,7 @@ URL: [https://huddle-home-meter-readings.vercel.app/]
 To run locally, clone the repo and run 
 
 ```bash
-npm i.
+npm i
 ```
 
 Run the development server:

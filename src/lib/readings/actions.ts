@@ -16,9 +16,6 @@ export async function createReading(formData: FormData) {
   const value = formData.get("value") as string;
   const type = formData.get("type") as "ELECTRICITY" | "GAS";
   const houseId = formData.get("houseId") as string;
-
-  console.log({ date, value, type, houseId });
-
   try {
     await prisma.reading.create({
       data: {

@@ -17,26 +17,26 @@ export default async function page({ params }: { params: { id: string } }) {
     notFound();
   }
 
-  console.log("house", house);
   const address = (await fetchAddressById(house.addressId)) as Address;
 
-  console.log("address", address);
   const city = await fetchCityById(address.cityId);
 
   const electricityReadings = await fetchReadingsForHouse(id, "ELECTRICITY");
   const gasReadings = await fetchReadingsForHouse(id, "GAS");
 
   return (
-    <ScrollArea className="h-full">
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold">Meter readings</h2>
-          <p className="text-xl font-semibold">
-            {address?.streetAddress}, {city?.name}
-          </p>
-        </div>
-        <div className="space-y-8 ">
-          <AddReadingDialog houseId={id} />
+    <div className="w-full">
+      <div className="flex items-center justify-between space-y-2">
+        <h2 className="text-4xl font-bold">Meter readings</h2>
+        <p className="text-xl font-semibold">
+          {address?.streetAddress}, {city?.name}
+        </p>
+      </div>
+      <div className="mt-4 flex items-center justify-between gap-2">
+        <AddReadingDialog houseId={id} />
+      </div>
+      <ScrollArea>
+        <div className="pt-6 space-y-10 ">
           <Tabs defaultValue="electricity" className="space-y-4">
             <TabsList>
               <TabsTrigger value="electricity">Electricity</TabsTrigger>
@@ -62,7 +62,7 @@ export default async function page({ params }: { params: { id: string } }) {
             </TabsContent>
           </Tabs>
         </div>
-      </div>
-    </ScrollArea>
+      </ScrollArea>
+    </div>
   );
 }
