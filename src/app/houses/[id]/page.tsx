@@ -6,9 +6,8 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { Address } from "@prisma/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ElectricityReadings from "@/components/ElectricityReadings";
-import GasReadings from "@/components/GasReadings";
-import AddReadingCallToAction from "@/components/AddReadingCallToAction";
+import Readings from "@/components/Readings";
+import AddReadingDialog from "@/components/AddReadingDialog";
 
 export default async function page({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -18,7 +17,10 @@ export default async function page({ params }: { params: { id: string } }) {
     notFound();
   }
 
+  console.log("house", house);
   const address = (await fetchAddressById(house.addressId)) as Address;
+
+  console.log("address", address);
   const city = await fetchCityById(address.cityId);
 
   const electricityReadings = await fetchReadingsForHouse(id, "ELECTRICITY");
@@ -34,7 +36,7 @@ export default async function page({ params }: { params: { id: string } }) {
           </p>
         </div>
         <div className="space-y-8 ">
-          <AddReadingCallToAction />
+          <AddReadingDialog houseId={id} />
           <Tabs defaultValue="electricity" className="space-y-4">
             <TabsList>
               <TabsTrigger value="electricity">Electricity</TabsTrigger>
@@ -42,14 +44,21 @@ export default async function page({ params }: { params: { id: string } }) {
             </TabsList>
             <TabsContent value="electricity" className="space-y-4">
               {electricityReadings && (
-                <ElectricityReadings
+                <Readings
                   readings={electricityReadings}
+                  type="ELECTRICITY"
                   streetAddress={address.streetAddress}
                 />
               )}
             </TabsContent>
             <TabsContent value="gas" className="space-y-4">
-              {gasReadings && <GasReadings readings={gasReadings} />}
+              {gasReadings && (
+                <Readings
+                  readings={gasReadings}
+                  type="GAS"
+                  streetAddress={address.streetAddress}
+                />
+              )}
             </TabsContent>
           </Tabs>
         </div>

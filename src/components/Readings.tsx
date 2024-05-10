@@ -15,16 +15,15 @@ import { formatDateToLocal } from "@/lib/utils";
 type PropsType = {
   readings: Reading[];
   streetAddress: string;
+  type: "ELECTRICITY" | "GAS";
 };
 
-export default function ElectricityReadings({
-  readings,
-  streetAddress,
-}: PropsType) {
+export default function Readings({ readings, streetAddress, type }: PropsType) {
   return (
     <Table>
       <TableCaption>
-        A list of the recent electricity readings for house on {streetAddress}.
+        A list of the recent {type.toLowerCase()} readings for house on{" "}
+        {streetAddress}.
       </TableCaption>
       <TableHeader>
         <TableRow>
@@ -44,7 +43,7 @@ export default function ElectricityReadings({
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
+          <TableCell>Total</TableCell>
           <TableCell className="text-right">
             {readings.reduce((total, b) => total + b.readingValue, 0)}
           </TableCell>
