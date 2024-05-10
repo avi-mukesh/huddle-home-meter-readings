@@ -4,15 +4,16 @@ import HouseCard from "@/components/HouseCard";
 import Pagination from "@/components/shared/Pagination";
 
 type PropsType = {
+  query: string;
   currentPage: number;
 };
 
-export default async function Houses({ currentPage }: PropsType) {
-  const houses = await fetchHouses(currentPage);
+export default async function Houses({ query, currentPage }: PropsType) {
+  const houses = await fetchHouses(query, currentPage);
   const totalPages = await fetchHousesPages();
   return (
     <>
-      <div className="p-4 mx-auto grid gap-2 grid-cols-1 grid-flow-row md:grid-cols-3 md:grid-rows-2">
+      <div className="py-4 mx-auto grid gap-2 grid-cols-1 grid-flow-row md:grid-cols-3 md:grid-rows-2">
         {houses?.map((house) => (
           <HouseCard key={house.id} house={house} />
         ))}

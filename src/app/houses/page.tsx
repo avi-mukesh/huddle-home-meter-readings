@@ -1,4 +1,5 @@
 import Houses from "@/components/Houses";
+import Search from "@/components/Search";
 import { EntriesSkeleton } from "@/components/ui/skeleton";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
@@ -10,13 +11,22 @@ export const metadata: Metadata = {
 export default async function page({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: { query?: string; page?: string };
 }) {
+  const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <Suspense fallback={<EntriesSkeleton />}>
-      <Houses currentPage={currentPage} />
-    </Suspense>
+    <div className="w-full">
+      <div className="flex w-full items-center justify-between">
+        <h1 className="text-4xl font-bold">Houses</h1>
+      </div>
+      <div className="mt-4 flex items-center justify-between gap-2">
+        <Search placeholder="Search houses..." />
+      </div>
+      <Suspense fallback={<EntriesSkeleton />}>
+        <Houses query={query} currentPage={currentPage} />
+      </Suspense>
+    </div>
   );
 }

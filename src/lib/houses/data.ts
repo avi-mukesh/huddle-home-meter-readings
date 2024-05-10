@@ -13,12 +13,13 @@ export async function fetchHouseById(id: string) {
   }
 }
 
-export async function fetchHouses(currentPage?: number) {
+export async function fetchHouses(query: string, currentPage?: number) {
   noStore();
   if (currentPage) {
     const skip = (currentPage - 1) * PAGE_SIZE;
     try {
       const entries = await prisma.house.findMany({
+        where: { address: { streetAddress: { contains: query } } },
         skip,
         take: PAGE_SIZE,
       });
