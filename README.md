@@ -2,7 +2,11 @@ Submission for Huddle Test Task 1
 
 URL: [https://huddle-home-meter-readings.vercel.app/]
 
-To run locally, clone the repo and run npm i.
+To run locally, clone the repo and run 
+
+```bash
+npm i.
+```
 
 Run the development server:
 
