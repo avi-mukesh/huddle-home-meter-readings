@@ -3,6 +3,16 @@ import { unstable_noStore as noStore } from "next/cache";
 
 const PAGE_SIZE = 6;
 
+export async function fetchHouseById(id: string) {
+  noStore();
+  try {
+    const house = await prisma.house.findFirst({ where: { id } });
+    return house;
+  } catch (error) {
+    console.error("Database Error:", error);
+  }
+}
+
 export async function fetchHouses(currentPage?: number) {
   noStore();
   if (currentPage) {
