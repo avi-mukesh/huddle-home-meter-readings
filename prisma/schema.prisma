@@ -14,6 +14,7 @@ model House {
     id              String      @default(cuid()) @id
     address         Address     @relation(fields: [addressId], references: [id])
     addressId       String      @unique
+    readings        Reading[]
 }
 
 model Address {
@@ -28,4 +29,18 @@ model City {
     id              String      @default(cuid()) @id
     name            String
     addresses       Address[]
+}
+
+enum ReadingType {
+    ELECTRICITY
+    GAS
+}
+
+model Reading {
+    id              String      @default(cuid()) @id
+    date            DateTime    @default(now()) @db.Date
+    house           House       @relation(fields: [houseId], references: [id])
+    houseId         String
+    readingValue    Int         @db.Integer
+    type            ReadingType
 }
